@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Hazard Analysis (AHA) Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Activity Hazard Analysis</h1>
+        <form id="ahaForm" class="space-y-4">
+            <div>
+                <label for="date" class="block text-sm font-medium text-gray-700">Date *</label>
+                <input type="date" id="date" name="date" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="preparedBy" class="block text-sm font-medium text-gray-700">Prepared By *</label>
+                <input type="text" id="preparedBy" name="preparedBy" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="jobTitle" class="block text-sm font-medium text-gray-700">Job Title/Description *</label>
+                <input type="text" id="jobTitle" name="jobTitle" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="location" class="block text-sm font-medium text-gray-700">Location *</label>
+                <input type="text" id="location" name="location" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            </div>
+            <div id="taskContainer" class="space-y-4">
+                <h2 class="text-lg font-medium text-gray-700">Task Steps</h2>
+                <div class="task-entry border p-4 rounded-md">
+                    <div>
+                        <label for="taskStep_0" class="block text-sm font-medium text-gray-700">Task Step *</label>
+                        <input type="text" id="taskStep_0" name="tasks[0][taskStep]" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="hazards_0" class="block text-sm font-medium text-gray-700">Potential Hazards *</label>
+                        <textarea id="hazards_0" name="tasks[0][hazards]" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label for="controls_0" class="block text-sm font-medium text-gray-700">Control Measures *</label>
+                        <textarea id="controls_0" name="tasks[0][controls]" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label for="rac_0" class="block text-sm font-medium text-gray-700">Risk Assessment Code *</label>
+                        <select id="rac_0" name="tasks[0][rac]" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                            <option value="">Select RAC</option>
+                            <option value="I-D">I-D (Critical, Unlikely)</option>
+                            <option value="II-D">II-D (Serious, Unlikely)</option>
+                            <option value="III-C">III-C (Moderate, Possible)</option>
+                            <option value="IV-B">IV-B (Minor, Probable)</option>
+                        </select>
+                    </div>
+                    <button type="button" class="remove-task mt-2 text-red-600 hover:text-red-800 text-sm" style="display: none;">Remove Task</button>
+                </div>
+            </div>
+            <button type="button" id="addTask" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Add Another Task</button>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Is PPE Required? *</label>
+                <div class="mt-2 space-x-4">
+                    <label><input type="radio" name="ppeRequired" value="yes" required> Yes</label>
+                    <label><input type="radio" name="ppeRequired" value="no"> No</label>
+                </div>
+                <div id="ppeDetails" class="mt-2 hidden">
+                    <label for="ppeDetailsInput" class="block text-sm font-medium text-gray-700">Specify PPE Needed *</label>
+                    <textarea id="ppeDetailsInput" name="ppeDetails" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Is Training Completed? *</label>
+                <div class="mt-2 space-x-4">
+                    <label><input type="radio" name="trainingCompleted" value="yes" required> Yes</label>
+                    <label><input type="radio" name="trainingCompleted" value="no"> No</label>
+                </div>
+                <div class="mt-2 space-y-2">
+                    <p class="text-sm text-gray-600">All fields below are required.</p>
+                    <div>
+                        <label for="equipmentNeeded" class="block text-sm font-medium text-gray-700">Type of Equipment Needed *</label>
+                        <textarea id="equipmentNeeded" name="equipmentNeeded" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                    </div>
+                    <div>
+                        <label for="qualifiedPerson" class="block text-sm font-medium text-gray-700">Qualified Person Name *</label>
+                        <input type="text" id="qualifiedPerson" name="qualifiedPerson" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Pre-Inspections Conducted? *</label>
+                        <div class="mt-2 space-x-4">
+                            <label><input type="radio" name="preInspections" value="yes" required> Yes</label>
+                            <label><input type="radio" name="preInspections" value="no"> No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="riskLevel" class="block text-sm font-medium text-gray-700">Overall Risk Level *</label>
+                <select id="riskLevel" name="riskLevel" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    <option value="">Select Risk Level</option>
+                    <option value="Extremely High Risk">Extremely High Risk</option>
+                    <option value="High Risk">High Risk</option>
+                    <option value="Moderate Risk">Moderate Risk</option>
+                    <option value="Low Risk">Low Risk</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">Submit</button>
+        </form>
+        <button id="downloadBtn" class="mt-4 w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500" style="display: none;">Download AHA</button>
+    </div>
+
+    <script>
+        let taskCount = 1;
+
+        // Toggle PPE Details visibility
+        const ppeRadios = document.querySelectorAll('input[name="ppeRequired"]');
+        const ppeDetailsDiv = document.getElementById('ppeDetails');
+        const ppeDetailsInput = document.getElementById('ppeDetailsInput');
+        ppeRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === 'yes') {
+                    ppeDetailsDiv.classList.remove('hidden');
+                    ppeDetailsInput.setAttribute('required', 'true');
+                } else {
+                    ppeDetailsDiv.classList.add('hidden');
+                    ppeDetailsInput.removeAttribute('required');
+                    ppeDetailsInput.value = '';
+                }
+            });
+        });
+
+        document.getElementById('addTask').addEventListener('click', () => {
+            const taskContainer = document.getElementById('taskContainer');
+            const newTaskDiv = document.createElement('div');
+            newTaskDiv.className = 'task-entry border p-4 rounded-md';
+            newTaskDiv.innerHTML = `
+                <div>
+                    <label for="taskStep_${taskCount}" class="block text-sm font-medium text-gray-700">Task Step *</label>
+                    <input type="text" id="taskStep_${taskCount}" name="tasks[${taskCount}][taskStep]" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                </div>
+                <div>
+                    <label for="hazards_${taskCount}" class="block text-sm font-medium text-gray-700">Potential Hazards *</label>
+                    <textarea id="hazards_${taskCount}" name="tasks[${taskCount}][hazards]" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                </div>
+                <div>
+                    <label for="controls_${taskCount}" class="block text-sm font-medium text-gray-700">Control Measures *</label>
+                    <textarea id="controls_${taskCount}" name="tasks[${taskCount}][controls]" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+                </div>
+                <div>
+                    <label for="rac_${taskCount}" class="block text-sm font-medium text-gray-700">Risk Assessment Code *</label>
+                    <select id="rac_${taskCount}" name="tasks[${taskCount}][rac]" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <option value="">Select RAC</option>
+                        <option value="I-D">I-D (Critical, Unlikely)</option>
+                        <option value="II-D">II-D (Serious, Unlikely)</option>
+                        <option value="III-C">III-C (Moderate, Possible)</option>
+                        <option value="IV-B">IV-B (Minor, Probable)</option>
+                    </select>
+                </div>
+                <button type="button" class="remove-task mt-2 text-red-600 hover:text-red-800 text-sm">Remove Task</button>
+            `;
+            taskContainer.appendChild(newTaskDiv);
+            taskCount++;
+            updateRemoveButtons();
+        });
+
+        function updateRemoveButtons() {
+            const removeButtons = document.querySelectorAll('.remove-task');
+            removeButtons.forEach((btn, index) => {
+                btn.style.display = taskCount > 1 ? 'block' : 'none';
+                btn.onclick = () => {
+                    btn.parentElement.remove();
+                    taskCount--;
+                    updateRemoveButtons();
+                };
+            });
+        }
+
+        const form = document.getElementById('ahaForm');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const tasks = [];
+            for (let i = 0; i < taskCount; i++) {
+                if (formData.get(`tasks[${i}][taskStep]`)) {
+                    tasks.push({
+                        taskStep: formData.get(`tasks[${i}][taskStep]`),
+                        hazards: formData.get(`tasks[${i}][hazards]`),
+                        controls: formData.get(`tasks[${i}][controls]`),
+                        rac: formData.get(`tasks[${i}][rac]`)
+                    });
+                }
+            }
+            const data = {
+                date: formData.get('date'),
+                preparedBy: formData.get('preparedBy'),
+                jobTitle: formData.get('jobTitle'),
+                location: formData.get('location'),
+                tasks: tasks,
+                ppeRequired: formData.get('ppeRequired'),
+                ppeDetails: formData.get('ppeDetails') || '',
+                trainingCompleted: formData.get('trainingCompleted'),
+                equipmentNeeded: formData.get('equipmentNeeded'),
+                qualifiedPerson: formData.get('qualifiedPerson'),
+                preInspections: formData.get('preInspections'),
+                riskLevel: formData.get('riskLevel')
+            };
+
+            localStorage.setItem('ahaData', JSON.stringify(data));
+            alert('Form submitted successfully!');
+            downloadBtn.style.display = 'block';
+            form.reset();
+            taskCount = 1;
+            document.querySelectorAll('.task-entry').forEach((entry, index) => {
+                if (index > 0) entry.remove();
+            });
+            ppeDetailsDiv.classList.add('hidden');
+            ppeDetailsInput.removeAttribute('required');
+            updateRemoveButtons();
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const data = localStorage.getItem('ahaData');
+            if (data) {
+                const blob = new Blob([data], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `aha_${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        });
+
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('ahaData')) {
+                downloadBtn.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
